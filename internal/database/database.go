@@ -38,9 +38,7 @@ var DbInfo *util.DBInfo = &util.DBInfo{
 	Db_HOST:     os.Getenv("DB_HOST"),
 }
 
-var (
-	dbInstance *service
-)
+var dbInstance *service
 
 func New() Service {
 	// Reuse Connection

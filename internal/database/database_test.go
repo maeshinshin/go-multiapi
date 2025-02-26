@@ -9,13 +9,11 @@ import (
 )
 
 func TestMain(m *testing.M) {
-
 	DbInfo.DB_DATABASE = "database"
 	DbInfo.DB_USERNAME = "user"
 	DbInfo.DB_PASSWORD = "password"
 
 	teardown, err := util.MustStartMySQLContainer(DbInfo)
-
 	if err != nil {
 		log.Fatalf("could not start mysql container: %v", err)
 	}

@@ -24,13 +24,11 @@ func FetchWeatherData(city string) (*WeatherData, error) {
 	}
 
 	uRL, err := url.ParseRequestURI(fmt.Sprintf(apiURL, city, apiKey))
-
 	if err != nil {
 		return nil, newParsingAPIURLFailedError(err)
 	}
 
 	resp, err := http.Get(uRL.String())
-
 	if err != nil {
 		return nil, newFetchingWeatherDataFailedError(err)
 	}
