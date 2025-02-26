@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 	"os"
 
 	_ "github.com/joho/godotenv/autoload"
@@ -22,9 +23,14 @@ func FetchWeatherData(city string) (*WeatherData, error) {
 		return nil, newCityParameterNotFoundError()
 	}
 
-	url := fmt.Sprintf(apiURL, city, apiKey)
+	uRL, err := url.ParseRequestURI(fmt.Sprintf(apiURL, city, apiKey))
 
-	resp, err := http.Get(url)
+	if err != nil {
+		return nil, newParsingAPIURLFailedError(err)
+	}
+
+	resp, err := http.Get(uRL.String())
+
 	if err != nil {
 		return nil, newFetchingWeatherDataFailedError(err)
 	}
