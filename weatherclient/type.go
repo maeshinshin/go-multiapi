@@ -52,6 +52,18 @@ func newApiKeyNotFoundError() *ApiKeyNotFoundError {
 	return &ApiKeyNotFoundError{}
 }
 
+type ParsingAPIURLFailedError struct {
+	err error
+}
+
+func (e *ParsingAPIURLFailedError) Error() string {
+	return weatherError(fmt.Sprintf("Failed to parse API URL.(%s)", e.err))
+}
+
+func newParsingAPIURLFailedError(err error) *ParsingAPIURLFailedError {
+	return &ParsingAPIURLFailedError{err}
+}
+
 type FetchingWeatherDataFailedError struct {
 	err error
 }

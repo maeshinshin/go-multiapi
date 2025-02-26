@@ -12,6 +12,7 @@ import (
 func TestFetchWeatherData(t *testing.T) {
 	type constraint struct {
 		noApiKey       bool
+		failtoParsing  bool
 		failtoFetching bool
 	}
 
@@ -33,6 +34,14 @@ func TestFetchWeatherData(t *testing.T) {
 			name: "empty city name",
 			city: "",
 			err:  newCityParameterNotFoundError(),
+		},
+		{
+			name: "fail to parse API URL",
+			constraint: &constraint{
+				failtoParsing: true,
+			},
+			city: "Tokyo",
+			err:  newParsingAPIURLFailedError(&url.Error{}),
 		},
 		{
 			name: "fail to fetch weather data",
@@ -60,11 +69,17 @@ func TestFetchWeatherData(t *testing.T) {
 						os.Setenv("OPENWEATHER_API_KEY", apiKey)
 					}()
 				}
-				if tt.constraint.failtoFetching {
+				if tt.constraint.failtoParsing || tt.constraint.failtoFetching {
 					var tmp string
 					apiKey := os.Getenv("OPENWEATHER_API_KEY")
 					os.Setenv("OPENWEATHER_API_KEY", "testapi")
-					apiURL, tmp = "https://gotest.maesh.dev?q=%s&appid=%s", apiURL
+
+					if tt.constraint.failtoFetching {
+						apiURL, tmp = "https://gotest.maesh.dev?q=%s&appid=%s", apiURL
+					} else {
+						apiURL, tmp = "api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric", apiURL
+					}
+
 					defer func() {
 						apiURL = tmp
 						os.Setenv("OPENWEATHER_API_KEY", apiKey)
@@ -74,12 +89,16 @@ func TestFetchWeatherData(t *testing.T) {
 
 			_, err := FetchWeatherData(tt.city)
 			if diff := cmp.Diff(tt.err, err, cmp.Comparer(func(x, y error) bool {
-				if fwdfe, ok := err.(*FetchingWeatherDataFailedError); ok {
-					if _, ok := fwdfe.err.(*url.Error); ok {
-						return true
-					}
+				switch e := err.(type) {
+				case *FetchingWeatherDataFailedError:
+					_, ok := e.err.(*url.Error)
+					return ok
+				case *ParsingAPIURLFailedError:
+					_, ok := e.err.(*url.Error)
+					return ok
+				default:
+					return errors.Is(err, tt.err)
 				}
-				return errors.Is(err, tt.err)
 			})); diff != "" {
 				t.Errorf("Test %q failed (-want +got):\n%s", tt.name, diff)
 			}
