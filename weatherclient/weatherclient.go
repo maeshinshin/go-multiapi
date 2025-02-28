@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-var apiURL string = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric"
+var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric"
 
 func FetchWeatherData(city string) (*WeatherData, error) {
 	apiKey := os.Getenv("OPENWEATHER_API_KEY")
