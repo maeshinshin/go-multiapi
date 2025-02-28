@@ -89,7 +89,7 @@ func TestFetchWeatherData(t *testing.T) {
 			}
 
 			_, err := FetchWeatherData(tt.city)
-			if diff := cmp.Diff(tt.err, err, cmp.Comparer(func(x, y error) bool {
+			if diff := cmp.Diff(tt.err, err, cmp.Comparer(func(_, _ error) bool {
 				switch e := err.(type) {
 				case *FetchingWeatherDataFailedError:
 					_, ok := e.err.(*url.Error)
