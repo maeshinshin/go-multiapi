@@ -12,7 +12,7 @@ import (
 
 func TestFetchWeatherData(t *testing.T) {
 	type constraint struct {
-		noApiKey       bool
+		noAPIKey       bool
 		failtoParsing  bool
 		failtoFetching bool
 	}
@@ -26,7 +26,7 @@ func TestFetchWeatherData(t *testing.T) {
 		{
 			name: "not set apiKey",
 			constraint: &constraint{
-				noApiKey: true,
+				noAPIKey: true,
 			},
 			city: "",
 			err:  newApiKeyNotFoundError(),
@@ -63,7 +63,7 @@ func TestFetchWeatherData(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			// var apiKey string
 			if tt.constraint != nil {
-				if tt.constraint.noApiKey {
+				if tt.constraint.noAPIKey {
 					apiKey := os.Getenv("OPENWEATHER_API_KEY")
 					os.Setenv("OPENWEATHER_API_KEY", "")
 					defer func() {
