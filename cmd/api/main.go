@@ -9,6 +9,8 @@ import (
 	"syscall"
 	"time"
 
+	_ "github.com/joho/godotenv/autoload"
+
 	"github.com/maeshinshin/go-multiapi/internal/server"
 )
 

@@ -6,8 +6,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-
-	_ "github.com/joho/godotenv/autoload"
 )
 
 var apiURL string = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric"
