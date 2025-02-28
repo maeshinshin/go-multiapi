@@ -1,6 +1,11 @@
 linters:
   enable-all: true
-  disable: []
+  disable:
+    - varnamelen
+
+run:
+  skip-dirs:
+    - cmd/web
 
 issues:
   exclude-files:
