@@ -3,6 +3,8 @@ linters:
   disable:
     - varnamelen
     - depguard
+    - exhaustruct
+    - mnd
 
 run:
   skip-dirs:
