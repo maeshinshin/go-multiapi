@@ -24,14 +24,14 @@ type Errors struct {
 }
 
 type HealthResponse struct {
-	Status              string `json:"status"`
-	Message             string `json:"message"`
-	Open_connections    string `json:"open_connections"`
-	In_use              string `json:"in_use"`
-	Idle                string `json:"idle"`
-	Wait_count          string `json:"wait_count"`
-	Wait_duration       string `json:"wait_duration"`
-	Max_idle_closed     string `json:"max_idle_closed"`
-	Max_lifetime_closed string `json:"max_lifetime_closed"`
-	Error               string `json:"error,omitempty"`
+	Status             string `json:"status"`
+	Message            string `json:"message"`
+	Openconnections    string `json:"open_connections"`
+	Inuse              string `json:"in_use"`
+	Idle               string `json:"idle"`
+	Waitcount          string `json:"wait_count"`
+	Waitduration       string `json:"wait_duration"`
+	Maxidle_closed     string `json:"max_idle_closed"`
+	Maxlifetime_closed string `json:"max_lifetime_closed"`
+	Error              string `json:"error,omitempty"`
 }
