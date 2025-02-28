@@ -18,7 +18,6 @@ type DBInfo struct {
 }
 
 func MustStartMySQLContainer(DbInfo *DBInfo) (func(context.Context, ...testcontainers.TerminateOption) error, error) {
-
 	dbContainer, err := mysql.Run(context.Background(),
 		"mysql:8.0.36",
 		mysql.WithDatabase(DbInfo.DB_DATABASE),
@@ -26,7 +25,6 @@ func MustStartMySQLContainer(DbInfo *DBInfo) (func(context.Context, ...testconta
 		mysql.WithPassword(DbInfo.DB_PASSWORD),
 		testcontainers.WithWaitStrategy(wait.ForLog("port: 3306  MySQL Community Server - GPL").WithStartupTimeout(30*time.Second)),
 	)
-
 	if err != nil {
 		return nil, err
 	}

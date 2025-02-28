@@ -15,13 +15,11 @@ import (
 )
 
 func TestMain(m *testing.M) {
-
 	database.DbInfo.DB_DATABASE = "database"
 	database.DbInfo.DB_PASSWORD = "password"
 	database.DbInfo.DB_USERNAME = "user"
 
 	teardown, err := util.MustStartMySQLContainer(database.DbInfo)
-
 	if err != nil {
 		log.Fatalf("could not start mysql container: %v", err)
 	}
@@ -105,7 +103,6 @@ func TestRouter_RegisterRoutes(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-
 			req := httptest.NewRequest(tt.method, tt.path, nil)
 			res := httptest.NewRecorder()
 

@@ -7,8 +7,6 @@ import (
 	"strconv"
 	"time"
 
-	_ "github.com/joho/godotenv/autoload"
-
 	"github.com/maeshinshin/go-multiapi/internal/database"
 	"github.com/maeshinshin/go-multiapi/router"
 )

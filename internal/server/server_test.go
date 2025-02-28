@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func TestNewServer(t *testing.T) {

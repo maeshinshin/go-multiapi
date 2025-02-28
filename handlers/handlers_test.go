@@ -17,13 +17,11 @@ import (
 )
 
 func TestMain(m *testing.M) {
-
 	database.DbInfo.DB_DATABASE = "database"
 	database.DbInfo.DB_PASSWORD = "password"
 	database.DbInfo.DB_USERNAME = "user"
 
 	teardown, err := util.MustStartMySQLContainer(database.DbInfo)
-
 	if err != nil {
 		log.Fatalf("could not start mysql container: %v", err)
 	}
@@ -40,7 +38,6 @@ func TestMain(m *testing.M) {
 }
 
 func TestHandlers(t *testing.T) {
-
 	// Following types define the expected response structure for HelloWorldHandler tests.
 	// Fields with concrete types are considered mandatory in the response body.
 	// Fields with type `any` are used for optional or unexpected data, allowing for looser type checking during tests.
@@ -100,7 +97,6 @@ func TestHandlers(t *testing.T) {
 	e := echo.New()
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-
 			c := e.NewContext(tt.req, tt.rec)
 
 			err := tt.handler(c)
@@ -133,8 +129,6 @@ func TestHandlers(t *testing.T) {
 			if diff := cmp.Diff(tt.requiredAndUnexpectedBody, actualBody, opts...); diff != "" {
 				t.Errorf("Handler response body is missing necessary elements or unexpected elements (-want +got):\n%s", diff)
 			}
-
 		})
-
 	}
 }

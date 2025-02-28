@@ -1,6 +1,21 @@
 linters:
   enable-all: true
-  disable: []
+  disable:
+    - varnamelen
+    - depguard
+    - exhaustruct
+    - mnd
+    - wrapcheck
+    - cyclop
+    - errorlint
+    - funlen
+    - paralleltest
+    - gochecknoglobals
+    - testpackage
+
+run:
+  skip-dirs:
+    - cmd/web
 
 issues:
   exclude-files:

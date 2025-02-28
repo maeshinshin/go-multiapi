@@ -4,12 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 	"os"
-
-	_ "github.com/joho/godotenv/autoload"
 )
 
-var apiURL string = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric"
+var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric"
 
 func FetchWeatherData(city string) (*WeatherData, error) {
 	apiKey := os.Getenv("OPENWEATHER_API_KEY")
@@ -22,9 +21,12 @@ func FetchWeatherData(city string) (*WeatherData, error) {
 		return nil, newCityParameterNotFoundError()
 	}
 
-	url := fmt.Sprintf(apiURL, city, apiKey)
+	uRL, err := url.ParseRequestURI(fmt.Sprintf(apiURL, city, apiKey))
+	if err != nil {
+		return nil, newParsingAPIURLFailedError(err)
+	}
 
-	resp, err := http.Get(url)
+	resp, err := http.Get(uRL.String())
 	if err != nil {
 		return nil, newFetchingWeatherDataFailedError(err)
 	}
