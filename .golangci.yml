@@ -5,6 +5,7 @@ linters:
     - depguard
     - exhaustruct
     - mnd
+    - wrapcheck
 
 run:
   skip-dirs:
