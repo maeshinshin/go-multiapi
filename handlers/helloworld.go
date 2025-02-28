@@ -17,5 +17,6 @@ func (h *Handlers) HelloWorldHandler(c echo.Context) error {
 		// 	Error2: "Error2",
 		// },
 	}
+
 	return c.JSON(http.StatusOK, resp)
 }
